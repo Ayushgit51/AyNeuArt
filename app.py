@@ -36,7 +36,7 @@ class UploadForm(FlaskForm):
 
 
 # ---------------- DEVICE ---------------- #
-device = torch.device("cpu")
+device = torch.device("gpu" if torch.cuda.is_available() else "cpu")
 
 
 # ---------------- MODEL LOAD ---------------- #
@@ -70,7 +70,7 @@ def save_image(image, path):
 def style_transfer(content_image, style_image, encoder, decoder, alpha, device):
 
     transform = transforms.Compose([
-        transforms.Resize((256, 256)),
+        transforms.Resize((512, 512)),
         transforms.ToTensor()
     ])
 
